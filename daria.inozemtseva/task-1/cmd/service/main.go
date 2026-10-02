@@ -32,10 +32,10 @@ func main() {
 		if number2 == 0 {
 			fmt.Println("Division by zero")
 			return
-		}else{
+		} else {
 			fmt.Println(number1 / number2)
 		}
 	default:
-			fmt.Println("Invalid operation")
+		fmt.Println("Invalid operation")
 	}
 }
