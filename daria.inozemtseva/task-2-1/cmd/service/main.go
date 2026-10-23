@@ -3,42 +3,47 @@ package main
 import "fmt"
 
 func main() {
-
-	var N int
-	fmt.Scan(&N)
-
-	if N < 1 || N > 1000 {
+	var n int
+	if _, err := fmt.Scan(&n); err != nil {
 		return
 	}
 
-	for i := 0; i < N; i++ {
-		var K int
-		fmt.Scan(&K)
+	if n < 1 || n > 1000 {
+		return
+	}
 
-		if K < 1 || K > 1000 {
+	for range n {
+		var k int
+		if _, err := fmt.Scan(&k); err != nil {
 			return
 		}
 
-		var min int = 15
-		var max int = 30
+		if k < 1 || k > 1000 {
+			return
+		}
 
-		for j := 0; j < K; j++ {
+		minTemp := 15
+		maxTemp := 30
+
+		for range k {
 			var symbol string
 			var temp int
-			fmt.Scan(&symbol, &temp)
+			if _, err := fmt.Scan(&symbol, &temp); err != nil {
+				return
+			}
 
 			if symbol == ">=" {
-				if temp > min {
-					min = temp
+				if temp > minTemp {
+					minTemp = temp
 				}
 			} else if symbol == "<=" {
-				if temp < max {
-					max = temp
+				if temp < maxTemp {
+					maxTemp = temp
 				}
 			}
 
-			if min <= max {
-				fmt.Println(min)
+			if minTemp <= maxTemp {
+				fmt.Println(minTemp)
 			} else {
 				fmt.Println("-1")
 			}
