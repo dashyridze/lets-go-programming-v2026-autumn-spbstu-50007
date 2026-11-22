@@ -78,7 +78,8 @@ func loadConfig(path string) (*Config, error) {
 
 	var cfg Config
 
-	if err := yaml.Unmarshal(configData, &cfg); err != nil {
+	err = yaml.Unmarshal(configData, &cfg)
+	if err != nil {
 		return nil, fmt.Errorf("failed to parse yaml: %w", err)
 	}
 
@@ -103,7 +104,8 @@ func parseXML(path string) (*ValCurs, error) {
 
 	var valCurs ValCurs
 
-	if err := decoder.Decode(&valCurs); err != nil {
+	err = decoder.Decode(&valCurs)
+	if err != nil {
 		return nil, fmt.Errorf("failed to parse xml: %w", err)
 	}
 
@@ -140,7 +142,10 @@ func processData(valCurs *ValCurs) ([]OutputValute, error) {
 }
 
 func saveJSON(path string, data []OutputValute) error {
-	if err := os.MkdirAll(filepath.Dir(path), 0755); err != nil {
+	dir := filepath.Dir(path)
+
+	err := os.MkdirAll(dir, 0755)
+	if err != nil {
 		return fmt.Errorf("failed to create directory: %w", err)
 	}
 
@@ -149,7 +154,8 @@ func saveJSON(path string, data []OutputValute) error {
 		return fmt.Errorf("failed to encode json: %w", err)
 	}
 
-	if err := os.WriteFile(path, jsonData, 0600); err != nil {
+	err = os.WriteFile(path, jsonData, 0600)
+	if err != nil {
 		return fmt.Errorf("failed to write file: %w", err)
 	}
 
