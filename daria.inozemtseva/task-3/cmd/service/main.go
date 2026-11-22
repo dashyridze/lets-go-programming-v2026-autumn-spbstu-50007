@@ -28,7 +28,7 @@ type ValCurs struct {
 }
 
 type Valute struct {
-	NumCode  string  `xml:"NumCode"`
+	NumCode  int  `xml:"NumCode"`
 	CharCode string  `xml:"CharCode"`
 	ValueStr string  `xml:"Value"`
 	Value    float64 `xml:"-"`
@@ -82,12 +82,8 @@ func main() {
 	})
 	result := make([]OutputValute, 0, len(valCurs.Valutes))
 	for _, v := range valCurs.Valutes {
-		numCode, err := strconv.Atoi(v.NumCode)
-		if err != nil {
-			panic(fmt.Sprintf("Failed to parse num_code %q: %v", v.NumCode, err))
-		}
 		result = append(result, OutputValute{
-			NumCode:  numCode,
+			NumCode:  v.NumCode,
 			CharCode: v.CharCode,
 			Value:    v.Value,
 		})
