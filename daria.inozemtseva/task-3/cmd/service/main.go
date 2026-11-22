@@ -18,6 +18,11 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+const (
+	dirPermissions  = 0o755
+	filePermissions = 0o600
+)
+
 type Config struct {
 	InputFile  string `yaml:"input-file"`
 	OutputFile string `yaml:"output-file"`
@@ -144,7 +149,7 @@ func processData(valCurs *ValCurs) ([]OutputValute, error) {
 func saveJSON(path string, data []OutputValute) error {
 	dir := filepath.Dir(path)
 
-	err := os.MkdirAll(dir, 0o755)
+	err := os.MkdirAll(dir, dirPermissions)
 	if err != nil {
 		return fmt.Errorf("failed to create directory: %w", err)
 	}
@@ -154,7 +159,7 @@ func saveJSON(path string, data []OutputValute) error {
 		return fmt.Errorf("failed to encode json: %w", err)
 	}
 
-	err = os.WriteFile(path, jsonData, 0o600)
+	err = os.WriteFile(path, jsonData, filePermissions)
 	if err != nil {
 		return fmt.Errorf("failed to write file: %w", err)
 	}
