@@ -144,7 +144,7 @@ func processData(valCurs *ValCurs) ([]OutputValute, error) {
 func saveJSON(path string, data []OutputValute) error {
 	dir := filepath.Dir(path)
 
-	err := os.MkdirAll(dir, 0755)
+	err := os.MkdirAll(dir, 0o755)
 	if err != nil {
 		return fmt.Errorf("failed to create directory: %w", err)
 	}
@@ -154,7 +154,7 @@ func saveJSON(path string, data []OutputValute) error {
 		return fmt.Errorf("failed to encode json: %w", err)
 	}
 
-	err = os.WriteFile(path, jsonData, 0600)
+	err = os.WriteFile(path, jsonData, 0o600)
 	if err != nil {
 		return fmt.Errorf("failed to write file: %w", err)
 	}
